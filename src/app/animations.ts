@@ -1,5 +1,6 @@
 import {
   animate,
+  group,
   keyframes,
   state,
   style,
@@ -72,6 +73,53 @@ export const filterTrigger = trigger('filterAnimation', [
     animate(
       '400ms cubic-bezier(.13,.9,.8,.1)',
       style({ opacity: 0, width: 0 })
+    ),
+  ]),
+]);
+
+export const formButtonTrigger = trigger('formButton', [
+  transition('invalid => valid', [
+    group([
+      animate(
+        200,
+        style({
+          backgroundColor: '#63b77c',
+        })
+      ),
+      animate(
+        100,
+        style({
+          transform: 'scale(1.1)',
+        })
+      ),
+    ]),
+    animate(
+      200,
+      style({
+        transform: 'scale(1)',
+      })
+    ),
+  ]),
+  transition('valid => invalid', [
+    group([
+      animate(
+        200,
+        style({
+          backgroundColor: '#6c757d',
+        })
+      ),
+      animate(
+        100,
+        style({
+          transform: 'scale(1.1)',
+        })
+      ),
+    ]),
+    animate(
+      200,
+      style({
+        transform: 'scale(1)',
+      })
     ),
   ]),
 ]);
