@@ -2,6 +2,7 @@ import {
   animate,
   group,
   keyframes,
+  query,
   state,
   style,
   transition,
@@ -79,19 +80,21 @@ export const filterTrigger = trigger('filterAnimation', [
 
 export const formButtonTrigger = trigger('formButton', [
   transition('invalid => valid', [
-    group([
-      animate(
-        200,
-        style({
-          backgroundColor: '#63b77c',
-        })
-      ),
-      animate(
-        100,
-        style({
-          transform: 'scale(1.1)',
-        })
-      ),
+    query('#botao-salvar', [
+      group([
+        animate(
+          200,
+          style({
+            backgroundColor: '#63b77c',
+          })
+        ),
+        animate(
+          100,
+          style({
+            transform: 'scale(1.1)',
+          })
+        ),
+      ]),
     ]),
     animate(
       200,
@@ -101,25 +104,27 @@ export const formButtonTrigger = trigger('formButton', [
     ),
   ]),
   transition('valid => invalid', [
-    group([
+    query('#botao-salvar', [
+      group([
+        animate(
+          200,
+          style({
+            backgroundColor: '#6c757d',
+          })
+        ),
+        animate(
+          100,
+          style({
+            transform: 'scale(1.1)',
+          })
+        ),
+      ]),
       animate(
         200,
         style({
-          backgroundColor: '#6c757d',
-        })
-      ),
-      animate(
-        100,
-        style({
-          transform: 'scale(1.1)',
+          transform: 'scale(1)',
         })
       ),
     ]),
-    animate(
-      200,
-      style({
-        transform: 'scale(1)',
-      })
-    ),
-  ]),
+  ])
 ]);
