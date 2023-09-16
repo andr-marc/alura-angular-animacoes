@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { TarefaService } from 'src/app/service/tarefa.service';
 import { Tarefa } from '../interface/tarefa';
-import { checkButtonTrigger, filterTrigger, formButtonTrigger, highlightedStateTrigger, shakeTrigger, shownStateTrigger } from '../animations';
+import { checkButtonTrigger, filterTrigger, formButtonTrigger, highlightedStateTrigger, listStateTrigger, shakeTrigger, shownStateTrigger } from '../animations';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -17,6 +17,7 @@ import { Subscription } from 'rxjs';
     filterTrigger,
     formButtonTrigger,
     shakeTrigger,
+    listStateTrigger,
   ],
 })
 export class ListaTarefasComponent implements OnInit {
@@ -28,7 +29,7 @@ export class ListaTarefasComponent implements OnInit {
   id: number = 0;
   campoBusca: string = '';
   tarefasFiltradas: Tarefa[] = [];
-  tarefasSubscription: Subscription = new Subscription()
+  tarefasSubscription: Subscription = new Subscription();
 
   formulario: FormGroup = this.fomBuilder.group({
     id: [0],
@@ -44,11 +45,11 @@ export class ListaTarefasComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.service.listar() 
-    this.tarefasSubscription = this.service.tarefas$.subscribe(tarefas => {
+    this.service.listar();
+    this.tarefasSubscription = this.service.tarefas$.subscribe((tarefas) => {
       this.listaTarefas = tarefas;
       this.tarefasFiltradas = tarefas;
-    })
+    });
   }
 
   filtrarTarefasPorDescricao(descricao: string) {
@@ -84,7 +85,7 @@ export class ListaTarefasComponent implements OnInit {
   }
 
   criarTarefa() {
-    if(this.formulario.valid){
+    if (this.formulario.valid) {
       const novaTarefa = this.formulario.value;
       this.service.criar(novaTarefa);
       this.resetarFormulario();
